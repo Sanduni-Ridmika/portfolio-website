@@ -1,0 +1,41 @@
+<ul>
+  <li *ngFor="let service of services">
+    <a routerLink="/service/{{service.id}}">
+      <img [src]="service.imageUrl" [alt]="service.name"/>
+      <div class="content">
+        <div class="name">
+          {{service.name}}
+        </div>
+        <span class="favourite {{service.favorite?'':'not'}}">
+
+        </span>
+        <div class="stars">
+          <star-rating
+          [value]="service.stars"
+          [totalstars]="5"
+          checkedcolor="red"
+          uncheckedcolor="black"
+          size="22px"
+          [readonly]="true">
+        </star-rating>
+        </div>
+        <div class="product-item-footer">
+          <div class="origins">
+            <span *ngFor="let origins of service.origins">
+              {{origins}}
+            </span>
+          </div>
+          <div class="time">
+            <span>🕒 </span>
+            {{service.time}}
+          </div>
+        </div>
+        <div class="price">
+          <span>
+            {{service.price | currency}}
+          </span>
+        </div>
+      </div>
+    </a>
+  </li>
+</ul>
