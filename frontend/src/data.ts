@@ -1,4 +1,4 @@
-import { Service } from "./app/shared/models/Service";
+import { Service } from './app/shared/models/Service';
 
 export const sample_services: Service[] = [
   {
@@ -9,7 +9,7 @@ export const sample_services: Service[] = [
     favorite: false,
     origins: ['Sri Lanka'],
     stars: 4.5,
-    imageUrl: 'assets/2.jpg',
+    imageUrl: 'assets/5.jpg',
     tags: ['wordpress', 'web development'],
   },
   {
