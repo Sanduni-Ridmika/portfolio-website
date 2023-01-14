@@ -13,4 +13,8 @@ export class ServiceService {
   getAll ():Service[] {
     return sample_services;
   }
+
+  getAllServicesBySearchTerm(searchTerm:string) {
+    return this.getAll().filter(service => service.name.toLowerCase().includes(searchTerm.toLowerCase()))
+  }
 }
