@@ -6,6 +6,6 @@ export class Service {
   favorite!:boolean;
   stars!:number;
   imageUrl!:string;
-  origins!:string[];
+  //origins!:string[];
   time!:string;
 }

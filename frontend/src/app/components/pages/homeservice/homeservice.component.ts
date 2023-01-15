@@ -13,11 +13,13 @@ export class HomeserviceComponent {
   services:Service[] = [];
   constructor(private serviceService:ServiceService, activatedRoute:ActivatedRoute) {
     //listen to the route param
-    //antime when the param changed call the function subscribe
+    //anytime when the param changed call the function subscribe
     activatedRoute.params.subscribe((params) => {
       //if there's a search term it will show it or else show every service
       if(params.searchTerm)
       this.services = this.serviceService.getAllServicesBySearchTerm(params.searchTerm);
+      else if (params.tag)
+      this.services = this.serviceService.getAllServicesByTag(params.tag);
       else
       this.services = serviceService.getAll();
     })

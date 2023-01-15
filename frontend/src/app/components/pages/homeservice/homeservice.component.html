@@ -1,4 +1,5 @@
 <app-search></app-search>
+<app-tags></app-tags>
 <ul>
   <li *ngFor="let service of services">
     <a routerLink="/service/{{service.id}}">
@@ -21,11 +22,11 @@
         </star-rating>
         </div>
         <div class="product-item-footer">
-          <div class="origins">
+          <!--<div class="origins">
             <span *ngFor="let origins of service.origins">
               {{origins}}
             </span>
-          </div>
+          </div>-->
           <div class="time">
             <span>🕒 </span>
             {{service.time}}
