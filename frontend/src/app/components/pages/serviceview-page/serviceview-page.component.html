@@ -1,4 +1,9 @@
-<div class="container">
+<app-not-found
+[visible]="!service.id"
+notFoundMessage="Couldn't find the Service!"
+resetLinkText="Go back to Homepage">
+</app-not-found>
+<div *ngIf="service.id" class="container">
   <img [src]="service.imageUrl" [alt]="service.name"/>
   <div class="details">
     <div class="header">
@@ -42,6 +47,6 @@
       </span>
     </div>
 
-    <button> Add to Cart </button>
+    <button (click)="addToCart()"> Add to Cart </button>
   </div>
 </div>

@@ -1,5 +1,9 @@
 <app-search></app-search>
 <app-tags></app-tags>
+<app-not-found
+[visible]="!services || !services.length"
+resetLinkText="Reset Search">
+</app-not-found>
 <ul>
   <li *ngFor="let service of services">
     <a routerLink="/service/{{service.id}}">
