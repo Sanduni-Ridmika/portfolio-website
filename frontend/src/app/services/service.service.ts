@@ -1,5 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { sample_services, sample_tags } from 'src/data';
+import { SERVICES_BY_SEARCH_URL, SERVICES_BY_TAG_URL, SERVICES_TAGS_URL, SERVICES_URL, SERVICE_BY_ID_URL } from '../shared/constants/urls';
 import { Service } from '../shared/models/Service';
 import { Tag } from '../shared/models/Tag';
 
@@ -8,28 +11,27 @@ import { Tag } from '../shared/models/Tag';
 })
 export class ServiceService {
 
-  constructor() { }
+  constructor(private http:HttpClient) { }
 
-  //get all services from data.ts (in future this service should be connected to the backend to get the data from backend)
-  getAll ():Service[] {
-    return sample_services;
+  getAll():Observable<Service[]> {
+    return this.http.get<Service[]>(SERVICES_URL);
   }
 
   getAllServicesBySearchTerm(searchTerm:string) {
-    return this.getAll().filter(service => service.name.toLowerCase().includes(searchTerm.toLowerCase()))
+    return this.http.get<Service[]> (SERVICES_BY_SEARCH_URL + searchTerm);
   }
-  getAllTags():Tag[]{
-    return sample_tags;
+  getAllTags(): Observable<Tag[]> {
+    return this.http.get<Tag[]>(SERVICES_TAGS_URL);
   }
   // find specified services from tags
-  getAllServicesByTag(tag:string):Service[]{
+  getAllServicesByTag(tag:string): Observable<Service[]> {
     return tag === "All"?
     this.getAll():
-    this.getAll().filter(service => service.tags?.includes(tag));
+    this.http.get<Service[]>(SERVICES_BY_TAG_URL + tag);
   }
 
-  getServiceById(serviceId:string):Service {
-    return this.getAll().find(service => service.id == serviceId) ?? new Service();
+  getServiceById(serviceId:string): Observable<Service> {
+    return this.http.get<Service>(SERVICE_BY_ID_URL + serviceId);
   }
 }
 

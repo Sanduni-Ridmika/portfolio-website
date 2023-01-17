@@ -15,7 +15,9 @@ export class ServiceviewPageComponent {
     private router:Router) {
     activatedRoute.params.subscribe((params)=> {
       if(params.id)
-      this.service = serviceService.getServiceById(params.id);
+      serviceService.getServiceById(params.id).subscribe(serverService => {
+        this.service = serverService;
+      });
     })
   }
 
