@@ -6,14 +6,16 @@
         <li>
           <a routerLink="/service-page"> Service </a>
         </li>
+        <li>
+          <a routerLink="/contact"> Contact </a>
+        </li>
         <li *ngIf="!isAuth">
           <a routerLink="/login">Login</a>
         </li>
         <li *ngIf="isAuth" class="menu-container">
           <a routerLink="/dashboard">{{user.name}}</a>
           <div class="menu">
-            <!--<a routerLink="/profile">Profile</a>-->
-            <a routerLink="/orders">Orders</a>
+            <a routerLink="track/:orderId">Orders</a>
             <a (click)="logout()">Logout</a>
           </div>
         </li>

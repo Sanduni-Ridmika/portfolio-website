@@ -30,6 +30,8 @@ import { AuthInterceptor } from './auth/auth.interceptor';
 import { PaymentPageComponent } from './components/pages/payment-page/payment-page.component';
 import { PayalButtonComponent } from './components/partials/payal-button/payal-button.component';
 import { HomePageComponent } from './components/pages/home-page/home-page.component';
+import { OrderTrackPageComponent } from './components/pages/order-track-page/order-track-page.component';
+import { ContactComponent } from './components/pages/contact/contact.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +56,9 @@ import { HomePageComponent } from './components/pages/home-page/home-page.compon
     MapComponent,
     PaymentPageComponent,
     PayalButtonComponent,
-    HomePageComponent
+    HomePageComponent,
+    OrderTrackPageComponent,
+    ContactComponent
   ],
   imports: [
     BrowserModule,
