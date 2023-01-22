@@ -2,29 +2,30 @@
 <html>
 
 <head>
-  <title>Customer support</title>
+  <title>Agent chat</title>
   <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.4/socket.io.js" integrity="sha512-YeeA/Qxn5hYdkukScTCNNOhTrv1C2RubAGButJ1rmgQwZf/HdRaCGl+JAVkqsqaNRaYNHdheiuKKuPf9mDcqKg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
- <script>
-  const cRoom = "<%= cid %>";
-  const sUrl = "http://localhost:5000/chat";
-  const socket = io(sUrl);
-  socket.on("connect", () => {
-    socket.emit('myroom', {
-      data: cRoom
+  <script>
+    const cRoom = "<%= cid %>";
+    const sUrl = "http://localhost:5000/chat";
+    const socket = io(sUrl);
+    socket.on("connect", () => {
+      socket.emit('myroom', {
+        data: cRoom
+      });
     });
-  });
-  socket.on('msg1234', (data) => {
-    document.querySelector('#firstText').innerHTML += `<li>Agent: ${data}</li>`;
-  });
+    socket.on('msg5678', (data) => {
+      document.querySelector('#firstText').innerHTML += `<li>Customer: ${data}</li>`;
+    });
 
-  function send() {
-    const msgC = document.querySelector('#text1').value;
-    document.querySelector('#firstText').innerHTML += `<li>You: ${msgC}</li>`;
-    socket.emit('msg5678', msgC);
-  };
-</script>
+    function send() {
+      const msgC = document.querySelector('#text1').value;
+      document.querySelector('#firstText').innerHTML += `<li>You: ${msgC}</li>`;
+      socket.emit('msg1234', msgC);
+    };
+  </script>
 </head>
+
 <body>
   <main>
     <div id="display"><br>

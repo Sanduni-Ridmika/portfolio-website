@@ -14,7 +14,7 @@ import { TitleComponent } from './components/partials/title/title.component';
 import { NotFoundComponent } from './components/partials/not-found/not-found.component';
 import { LoginPageComponent } from './components/pages/login-page/login-page.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ToastrModule } from 'ngx-toastr';
+import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { InputContainerComponent } from './components/partials/input-container/input-container.component';
 import { InputValidationComponent } from './components/partials/input-validation/input-validation.component';
@@ -32,6 +32,9 @@ import { PayalButtonComponent } from './components/partials/payal-button/payal-b
 import { HomePageComponent } from './components/pages/home-page/home-page.component';
 import { OrderTrackPageComponent } from './components/pages/order-track-page/order-track-page.component';
 import { ContactComponent } from './components/pages/contact/contact.component';
+import { RoomsComponent } from './components/pages/rooms/rooms.component';
+import { AgentComponent } from './components/pages/agent/agent.component';
+import { FormsModule } from '@angular/forms'
 
 @NgModule({
   declarations: [
@@ -58,7 +61,9 @@ import { ContactComponent } from './components/pages/contact/contact.component';
     PayalButtonComponent,
     HomePageComponent,
     OrderTrackPageComponent,
-    ContactComponent
+    ContactComponent,
+    RoomsComponent,
+    AgentComponent
   ],
   imports: [
     BrowserModule,
@@ -67,6 +72,7 @@ import { ContactComponent } from './components/pages/contact/contact.component';
     RatingModule,
     HttpClientModule,
     ReactiveFormsModule,
+    FormsModule,
     ToastrModule.forRoot({
       timeOut:3000,
       positionClass:'toast-bottom-right',
@@ -75,7 +81,8 @@ import { ContactComponent } from './components/pages/contact/contact.component';
   ],
   providers: [
     {provide:HTTP_INTERCEPTORS, useClass:AuthInterceptor, multi: true},
-    {provide:HTTP_INTERCEPTORS, useClass:LoadingInterceptor, multi: true}
+    {provide:HTTP_INTERCEPTORS, useClass:LoadingInterceptor, multi: true},
+    {provide: ToastrService, useClass: ToastrService},
   ],
   bootstrap: [AppComponent]
 })

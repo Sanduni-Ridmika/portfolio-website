@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Rooms</title>
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.4/socket.io.js" integrity="sha512-YeeA/Qxn5hYdkukScTCNNOhTrv1C2RubAGButJ1rmgQwZf/HdRaCGl+JAVkqsqaNRaYNHdheiuKKuPf9mDcqKg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script>
+    const socket = io('http://localhost:5000/chat');
+    socket.on("connect", () => {
+      console.log("connected");
+    });
+    socket.on('nsList', (ns) => {
+      ns.forEach(ons => {
+        document.querySelector('#completed-tasks').innerHTML += `<li><a href="http://localhost:5000/agent/${ons}">${ons}</a></li>`;
+      });
+    });
+    setInterval(() => {
+      location.reload();
+    }, 10000);
+  </script>
+</head>
+
+<body>
+  <h1>Chat rooms</h1>
+  <ul id="completed-tasks"></ul>
+  <form method="post" action="/delete">
+    <button class="my-4" type="submit">DONE</button>
+  </form>
+</body>
+
+</html>
