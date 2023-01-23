@@ -1,4 +1,6 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ToastrModule, ToastrService } from 'ngx-toastr';
 
 import { ContactComponent } from './contact.component';
 
@@ -8,10 +10,20 @@ describe('ContactComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [ContactComponent]
+          imports: [HttpClientTestingModule],
+            declarations: [ContactComponent],
         })
             .compileComponents();
     }));
+
+    beforeEach(async(() => {
+      TestBed.configureTestingModule({
+        imports: [ToastrModule.forRoot()],
+
+      })
+        .compileComponents();
+    }));
+
 
     beforeEach(() => {
         fixture = TestBed.createComponent(ContactComponent);
