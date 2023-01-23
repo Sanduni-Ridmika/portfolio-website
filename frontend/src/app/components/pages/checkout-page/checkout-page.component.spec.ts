@@ -2,6 +2,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { ToastrModule } from 'ngx-toastr';
 
 import { CheckoutPageComponent } from './checkout-page.component';
 imports: {RouterModule.forRoot([])}
@@ -15,7 +16,8 @@ describe('CheckoutPageComponent', () => {
         TestBed.configureTestingModule({
           imports: [
             ReactiveFormsModule,
-            FormsModule
+            FormsModule,
+            [ToastrModule.forRoot()]
           ],
             declarations: [CheckoutPageComponent]
         })

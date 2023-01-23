@@ -4,6 +4,7 @@ import { RegisterPageComponent } from './register-page.component';
 import { FormsModule } from '@angular/forms'
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ToastrModule } from 'ngx-toastr';
 
 describe('RegisterPageComponent', () => {
     let component: RegisterPageComponent;
@@ -14,7 +15,8 @@ describe('RegisterPageComponent', () => {
           imports: [
             [HttpClientTestingModule],
             ReactiveFormsModule,
-            FormsModule
+            FormsModule,
+            [ToastrModule.forRoot()]
           ],
             declarations: [RegisterPageComponent]
         })
