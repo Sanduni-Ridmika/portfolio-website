@@ -1,7 +1,7 @@
 <app-not-found
 [visible]="!service"
 notFoundMessage="Couldn't find the Service!"
-resetLinkText="Go back to Homepage">
+resetLinkText="Go back to Services page">
 </app-not-found>
 <div *ngIf="service" class="container">
   <img [src]="service.imageUrl" [alt]="service.name"/>

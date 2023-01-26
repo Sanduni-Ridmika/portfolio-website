@@ -32,7 +32,8 @@ import { PayalButtonComponent } from './components/partials/payal-button/payal-b
 import { HomePageComponent } from './components/pages/home-page/home-page.component';
 import { OrderTrackPageComponent } from './components/pages/order-track-page/order-track-page.component';
 import { ContactComponent } from './components/pages/contact/contact.component';
-import { FormsModule } from '@angular/forms'
+import { FormsModule } from '@angular/forms';
+import { ProjectsComponent } from './components/pages/projects/projects.component'
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import { FormsModule } from '@angular/forms'
     HomePageComponent,
     OrderTrackPageComponent,
     ContactComponent,
+    ProjectsComponent,
   ],
   imports: [
     BrowserModule,

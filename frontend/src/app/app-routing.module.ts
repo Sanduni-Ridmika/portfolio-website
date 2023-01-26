@@ -9,12 +9,14 @@ import { HomeserviceComponent } from './components/pages/homeservice/homeservice
 import { LoginPageComponent } from './components/pages/login-page/login-page.component';
 import { OrderTrackPageComponent } from './components/pages/order-track-page/order-track-page.component';
 import { PaymentPageComponent } from './components/pages/payment-page/payment-page.component';
+import { ProjectsComponent } from './components/pages/projects/projects.component';
 import { RegisterPageComponent } from './components/pages/register-page/register-page.component';
 import { ServiceviewPageComponent } from './components/pages/serviceview-page/serviceview-page.component';
 
 //adding each pages
 const routes: Routes = [
   {path:'', component:HomePageComponent},
+  {path:'projects', component:ProjectsComponent},
   {path:'service-page',component:HomeserviceComponent}, //empty string means home page of the angular module
   {path:'search/:searchTerm', component:HomeserviceComponent},
   {path:'tag/:tag', component:HomeserviceComponent},
