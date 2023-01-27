@@ -3,6 +3,7 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { AppRoutingModule } from 'src/app/app-routing.module';
 import { HomeserviceComponent } from './homeservice.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 describe('HomeserviceComponent', () => {
     let component: HomeserviceComponent;
@@ -15,6 +16,7 @@ describe('HomeserviceComponent', () => {
             FormsModule
           ],
             declarations: [HomeserviceComponent],
+            providers: [{ provide: ActivatedRoute, useValue: {} } ]
         })
             .compileComponents();
     }));

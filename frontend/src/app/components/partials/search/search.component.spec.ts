@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { ActivatedRoute } from '@angular/router';
+import { of } from 'rxjs';
 import { SearchComponent } from './search.component';
 
 describe('SearchComponent', () => {
@@ -8,7 +9,8 @@ describe('SearchComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [SearchComponent]
+            declarations: [SearchComponent],
+            providers: [{ provide: ActivatedRoute, useValue: {params: of({searchTerm: 'test'})}}]
         })
             .compileComponents();
     }));

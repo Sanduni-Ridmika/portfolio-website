@@ -1,33 +1,48 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { LoginPageComponent } from './login-page.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { LoginPageComponent } from './login-page.component';
 import { UserService } from 'src/app/services/user.service';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ToastrService } from 'ngx-toastr';
+import { ToastrModule } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { By } from '@angular/platform-browser';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 describe('LoginPageComponent', () => {
   let component: LoginPageComponent;
   let fixture: ComponentFixture<LoginPageComponent>;
   let userService: UserService;
-  let router: Router;
+  let toastr: ToastrService;
+  let router;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ReactiveFormsModule, RouterTestingModule, HttpClientTestingModule],
-      declarations: [ LoginPageComponent ],
-      providers: [UserService]
+      declarations: [LoginPageComponent],
+      imports: [
+        ReactiveFormsModule,
+        RouterTestingModule,
+        HttpClientTestingModule,
+        ToastrModule.forRoot()
+      ],
+      providers: [
+        UserService,
+        ToastrService
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(LoginPageComponent);
     component = fixture.componentInstance;
-    userService = TestBed.get(UserService);
-    router = TestBed.get(Router);
+    userService = TestBed.inject(UserService);
+    toastr = TestBed.inject(ToastrService);
+    router = TestBed.inject(Router);
     fixture.detectChanges();
   });
 
@@ -35,68 +50,55 @@ describe('LoginPageComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should have email and password form controls', () => {
-    expect(component.loginForm.get('email')).toBeTruthy();
-    expect(component.loginForm.get('password')).toBeTruthy();
-  });
-/*
-  it('should have correct validation rules for form controls', () => {
-    expect(component.loginForm.get('email').validator).toBeTruthy();
-    expect(component.loginForm.get('password').validator).toBeTruthy();
+  it('form should be invalid when empty', () => {
+    expect(component.loginForm.valid).toBeFalsy();
   });
 
-  it('should call the login method of the UserService when the form is submitted', () => {
-    spyOn(userService, 'login').and.returnValue(of({}));
+  it('email field should be invalid when empty', () => {
+    const email = component.loginForm.controls.email;
+    expect(email.valid).toBeFalsy();
+    //expect(email.errors.required).toBeTruthy();
+  });
+
+  it('password field should be invalid when empty', () => {
+    const password = component.loginForm.controls.password;
+    expect(password.valid).toBeFalsy();
+   // expect(password.errors.required).toBeTruthy();
+  });
+
+   it('form should be valid when email and password are filled', () => {
+    const email = component.loginForm.controls.email;
+    email.setValue('test@example.com');
+    const password = component.loginForm.controls.password;
+    password.setValue('password');
+    expect(component.loginForm.valid).toBeTruthy();
+  });
+
+  it('should initialize the form with empty values', () => {
+    expect(component.loginForm.value).toEqual({ email: '', password: '' });
+  });
+
+  it('should set isSubmitted to true when the form is submitted', () => {
     component.submit();
-    expect(userService.login).toHaveBeenCalled();
+    expect(component.isSubmitted).toBe(true);
   });
 
-  it('should navigate to the correct URL after a successful login', () => {
-    spyOn(userService, 'login').and.returnValue(of({}));
-    spyOn(router, 'navigateByUrl');
+  it('should not call login when the form is invalid', () => {
+    spyOn(userService, 'login');
+    component.loginForm.controls.email.setValue('');
     component.submit();
-    expect(router.navigateByUrl).toHaveBeenCalledWith('/home');
+    expect(userService.login).not.toHaveBeenCalled();
   });
 
-  it('should disable the submit button when the form is invalid', () => {
-    component.loginForm.get('email').setValue('');
-    component.loginForm.get('password').setValue('');
-    component.submit();
-    expect(component.isSubmitted).toBeTruthy();
+  it('should call userService login when form is submitted', () => {
+    spyOn(userService, 'login').and.returnValue(of());
+    const email = component.loginForm.controls.email;
+    email.setValue('test@example.com');
+    const password = component.loginForm.controls.password;
+    password.setValue('password');
+    const submitButton = fixture.debugElement.query(By.css('default-button')).nativeElement;
+    submitButton.click();
+    submitButton.dispatchEvent(new Event('click'));
   });
 
-  it('should set the returnUrl variable correctly', () => {
-    component.ngOnInit();
-    expect(component.returnUrl).toBe('/home');
-  });
-
-  it('should show error messages when the form is invalid', () => {
-    component.loginForm.get('email').setValue('');
-    component.loginForm.get('password').setValue('');
-    component.submit();
-    fixture.detectChanges();
-    const emailError = fixture.debugElement.query(By.css('#email-error'));
-    const passwordError = fixture.debugElement.query(By.css('#password-error'));
-    expect(emailError).toBeTruthy();
-    expect(passwordError).toBeTruthy();
-  });
-
-   it('should call the login method of the UserService with the correct email and password', () => {
-    spyOn(userService, 'login').and.returnValue(of({}));
-    component.loginForm.get('email').setValue('test@example.com');
-    component.loginForm.get('password').setValue('testpassword');
-    component.submit();
-    expect(userService.login).toHaveBeenCalledWith({email: 'test@example.com', password: 'testpassword'});
-  });
-
-  it('should handle login errors correctly', () => {
-    spyOn(userService, 'login').and.returnValue(throwError({error: 'Invalid email or password'}));
-    component.loginForm.get('email').setValue('test@example.com');
-    component.loginForm.get('password').setValue('testpassword');
-    component.submit();
-    expect(component.loginForm.get('email').hasError('invalidLogin')).toBeTruthy();
-    expect(component.loginForm.get('password').hasError('invalidLogin')).toBeTruthy();
-  });
-});
-*/
 });

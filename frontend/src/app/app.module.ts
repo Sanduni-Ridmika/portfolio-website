@@ -82,6 +82,7 @@ import { ProjectsComponent } from './components/pages/projects/projects.componen
     {provide:HTTP_INTERCEPTORS, useClass:LoadingInterceptor, multi: true},
     {provide: ToastrService, useClass: ToastrService},
   ],
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }

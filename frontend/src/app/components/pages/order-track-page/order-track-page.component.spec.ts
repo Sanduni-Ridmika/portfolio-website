@@ -1,5 +1,8 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { of } from 'rxjs';
 
 import { OrderTrackPageComponent } from './order-track-page.component';
 
@@ -11,9 +14,12 @@ describe('OrderTrackPageComponent', () => {
         TestBed.configureTestingModule({
           imports: [
             ReactiveFormsModule,
-            FormsModule
+            FormsModule,
+            HttpClientTestingModule
           ],
-            declarations: [OrderTrackPageComponent]
+            declarations: [OrderTrackPageComponent],
+            providers: [{ provide: ActivatedRoute, useValue: {snapshot: {params: {orderId: '1'}}} } ]
+
         })
             .compileComponents();
     }));
