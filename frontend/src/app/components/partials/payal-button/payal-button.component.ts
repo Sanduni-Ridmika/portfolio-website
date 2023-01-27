@@ -15,6 +15,7 @@ export class PayalButtonComponent {
   @Input()
   order!:Order;
 
+
   @ViewChild('paypal', {static: true})
   paypalElement!:ElementRef;
 

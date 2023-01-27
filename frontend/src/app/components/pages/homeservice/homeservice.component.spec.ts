@@ -4,6 +4,8 @@ import { AppRoutingModule } from 'src/app/app-routing.module';
 import { HomeserviceComponent } from './homeservice.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { of } from 'rxjs';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 describe('HomeserviceComponent', () => {
     let component: HomeserviceComponent;
@@ -16,7 +18,9 @@ describe('HomeserviceComponent', () => {
             FormsModule
           ],
             declarations: [HomeserviceComponent],
-            providers: [{ provide: ActivatedRoute, useValue: {} } ]
+            providers: [{ provide: ActivatedRoute, useValue: { params: of({subscribe: 'test'})}} ],
+            schemas: [CUSTOM_ELEMENTS_SCHEMA]
+
         })
             .compileComponents();
     }));
