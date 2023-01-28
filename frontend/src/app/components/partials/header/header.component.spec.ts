@@ -10,22 +10,11 @@ describe('HeaderComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [HeaderComponent]
+            declarations: [HeaderComponent],
+            imports: [ToastrModule.forRoot(), HttpClientTestingModule],
+            providers: [HeaderComponent]
         })
             .compileComponents();
-    }));
-
-    beforeEach(async(() => {
-      TestBed.configureTestingModule({
-        imports: [ToastrModule.forRoot()],
-
-      })
-        .compileComponents();
-    }));
-
-    beforeEach(() => TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      providers: [HeaderComponent]
     }));
 
     beforeEach(() => {
@@ -38,4 +27,11 @@ describe('HeaderComponent', () => {
     it('should create', () => {
         expect(component).toBeTruthy();
     });
+
+    it('should show login link when user is not logged in', () => {
+      const loginLink = fixture.debugElement.nativeElement.querySelector('a[routerLink="/login"]');
+      expect(loginLink).toBeTruthy();
+    });
+
+
 });

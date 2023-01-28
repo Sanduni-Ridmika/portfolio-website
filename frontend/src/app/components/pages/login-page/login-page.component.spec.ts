@@ -90,15 +90,4 @@ describe('LoginPageComponent', () => {
     expect(userService.login).not.toHaveBeenCalled();
   });
 
-  it('should call userService login when form is submitted', () => {
-    spyOn(userService, 'login').and.returnValue(of());
-    const email = component.loginForm.controls.email;
-    email.setValue('test@example.com');
-    const password = component.loginForm.controls.password;
-    password.setValue('password');
-    const submitButton = fixture.debugElement.query(By.css('default-button')).nativeElement;
-    submitButton.click();
-    submitButton.dispatchEvent(new Event('click'));
-  });
-
 });

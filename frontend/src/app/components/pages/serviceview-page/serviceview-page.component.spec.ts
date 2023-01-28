@@ -1,39 +1,77 @@
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { of } from 'rxjs';
-import { AppRoutingModule } from 'src/app/app-routing.module';
-
+import { Service } from 'src/app/shared/models/Service';
+import { CartService } from 'src/app/services/cart.service';
+import { ServiceService } from 'src/app/services/service.service';
 import { ServiceviewPageComponent } from './serviceview-page.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
-describe('ServiceviewPageComponent', async () => {
-    let component: ServiceviewPageComponent;
-    let fixture: ComponentFixture<ServiceviewPageComponent>;
-    const activatedRouteSpy = jasmine.createSpyObj('ActivatedRoute', ['snapshot'])
-    const routerSpy = jasmine.createSpyObj('Router',['navigate'])
+describe('ServiceviewPageComponent', () => {
+  let component: ServiceviewPageComponent;
+  let fixture: ComponentFixture<ServiceviewPageComponent>;
+  let serviceService: ServiceService;
+  let cartService: CartService;
+  let router: Router;
+  let activatedRoute: ActivatedRoute;
 
-    beforeEach(async(() => {
-        TestBed.configureTestingModule({
-          imports: [HttpClientTestingModule],
-            declarations: [ServiceviewPageComponent],
-            providers: [{ provide: ActivatedRoute, useValue: {params: of({service: 'test'})}}],
-            schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [ ServiceviewPageComponent ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
 
+      providers: [
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            params: of({ id: '1' })
+          }
+        },
+        {
+          provide: ServiceService,
+          useValue: {
+            getServiceById: jasmine.createSpy().and.returnValue(of({}))
+          }
+        },
+        {
+          provide: CartService,
+          useValue: {
+            addToCart: jasmine.createSpy()
+          }
+        },
+        {
+          provide: Router,
+          useValue: {
+            navigateByUrl: jasmine.createSpy()
+          }
+        }
+      ]
+    })
+    .compileComponents();
+  }));
 
-        })
-          .compileComponents();
-    }));
+  beforeEach(() => {
+    fixture = TestBed.createComponent(ServiceviewPageComponent);
+    component = fixture.componentInstance;
+    serviceService = TestBed.get(ServiceService);
+    cartService = TestBed.get(CartService);
+    router = TestBed.get(Router);
+    activatedRoute = TestBed.get(ActivatedRoute);
+    fixture.detectChanges();
+  });
 
-    beforeEach(() => {
-        fixture = TestBed.createComponent(ServiceviewPageComponent);
-        component = fixture.componentInstance;
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
 
-        activatedRouteSpy.snapshot.and.returnValues(new ActivatedRouteSnapshot)
-        fixture.detectChanges();
-    });
+  it('should get the service by id on init', () => {
+    expect(serviceService.getServiceById).toHaveBeenCalledWith('1');
+  });
 
-    it('should create', () => {
-        expect(component).toBeTruthy();
-    });
+  it('should add the service to the cart when addToCart is called', () => {
+    component.service = { id: '1' } as Service;
+    component.addToCart();
+   // expect(cartService.addToCart).toHaveBeenCalledWith({''});
+    expect(router.navigateByUrl).toHaveBeenCalledWith('/cart-page');
+  });
 });

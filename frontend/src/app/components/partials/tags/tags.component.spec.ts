@@ -10,13 +10,11 @@ describe('TagsComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [TagsComponent]
+            declarations: [TagsComponent],
+            imports: [HttpClientTestingModule],
+            providers: [TagsComponent]
         })
             .compileComponents();
-    }));
-    beforeEach(() => TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      providers: [TagsComponent]
     }));
 
     beforeEach(() => {
@@ -28,4 +26,5 @@ describe('TagsComponent', () => {
     it('should create', () => {
         expect(component).toBeTruthy();
     });
+
 });
