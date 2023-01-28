@@ -6,13 +6,10 @@ import { OrderService } from './order.service';
 describe('OrderService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
       providers: [OrderService]
     });
   });
-  beforeEach(() => TestBed.configureTestingModule({
-    imports: [HttpClientTestingModule],
-    providers: [OrderService]
-  }));
 
 
   it('should be created', inject([OrderService], (service: OrderService) => {
