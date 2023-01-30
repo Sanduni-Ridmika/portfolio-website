@@ -23,7 +23,7 @@ jobs:
           node-version: 16
 
       - name: Set working directory to portfolio-website
-        run: cd portfolio-website
+        run: cd frontend
 
       - name: dependency installation
         run: npm install
