@@ -22,9 +22,6 @@ jobs:
         with:
           node-version: 16
 
-      - name: dependancy path
-        run: cd frontend
-
       - name: dependency installation
         run: npm install
 
