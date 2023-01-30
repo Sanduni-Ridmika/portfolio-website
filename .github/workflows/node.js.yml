@@ -1,3 +1,4 @@
+here's my .yml file code,
 # This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
 
@@ -12,7 +13,7 @@ on:
 jobs:
   build:
 
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
       - name: checkout action
         uses: actions/checkout@v2
@@ -24,6 +25,7 @@ jobs:
 
       - name: dependency installation
         run: npm install
+        cache-dependency-path: '**/package-lock.json'
 
       - name: Run tests
         run: npm run test:headless
