@@ -25,7 +25,7 @@ jobs:
 
       - name: dependency installation
         run: npm install
-        cache-dependency-path: '**/package-lock.json'
+        run: cd frontend
 
       - name: Run tests
         run: npm run test:headless
