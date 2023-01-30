@@ -39,7 +39,6 @@ describe('CartPageComponent', () => {
     component = fixture.componentInstance;
     cartService = TestBed.get(CartService);
     cart = new Cart();
-    //cartItem = new CartItem(new Service({ id: '1', name: 'Test Service', price: 10 }));
     cart.items.push(cartItem);
     spyOn(cartService, 'getCartObservable').and.returnValue(of(cart));
     fixture.detectChanges();

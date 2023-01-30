@@ -5,7 +5,6 @@ import { OrderTrackPageComponent } from './order-track-page.component';
 import { OrderService } from 'src/app/services/order.service';
 import { Order } from 'src/app/shared/models/Order';
 import { CartItem } from 'src/app/shared/models/CartItem';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('OrderTrackPageComponent', () => {
   let component: OrderTrackPageComponent;
@@ -18,7 +17,6 @@ describe('OrderTrackPageComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ OrderTrackPageComponent ],
-      imports:[HttpClientTestingModule],
       providers: [
         {
           provide: ActivatedRoute,
@@ -47,6 +45,7 @@ describe('OrderTrackPageComponent', () => {
     orderService = TestBed.get(OrderService);
     activatedRoute = TestBed.get(ActivatedRoute);
   });
+
 
   it('should create', () => {
     expect(component).toBeTruthy();
