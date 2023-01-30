@@ -12,7 +12,7 @@ on:
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - name: checkout action
         uses: actions/checkout@v2
