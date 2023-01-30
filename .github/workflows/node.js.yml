@@ -37,9 +37,3 @@ jobs:
       run: |
         ng test
         npm test
-
-    - name: Deploy to production
-      if: success()
-      uses: actions/deploy@v1
-      with:
-        environment: production
