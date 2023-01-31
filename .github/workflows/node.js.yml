@@ -12,8 +12,8 @@ on:
 jobs:
   build:
 
-    runs-on: ubuntu-latest
-    timeout-minutes: 3
+    runs-on: windows-latest
+    timeout-minutes: 5
 
     defaults:
       run:
